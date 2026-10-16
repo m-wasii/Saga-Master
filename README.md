@@ -1,6 +1,6 @@
 # Saga Master
 
-Saga Master is a declarative JSON saga orchestrator by Muhammad Usman, Khuzaima Nawab, and Muhammad Wasi, supervised by Faisal Feroz (MAJU, Fall 2024). It answers future work from Koyya and Muthukumar (2022).
+Saga Master is a declarative JSON saga orchestrator by Muhammad Usman, Khuzaima Nawab, and Muhammad Wasi, supervised by Faisal Feroz (Muhammad Ali Jinnah University, Fall 2024). It answers future work from Koyya and Muthukumar (2022).
 
 The public API is two POST routes:
 
