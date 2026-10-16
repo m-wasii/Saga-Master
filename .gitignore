@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.env
+*.log
+coverage/
+*.pdf
+*.docx
+*.pptx
+*.xlsx
+*.rar
+*.postman_collection.json

@@ -1,0 +1,45 @@
+{
+  "url": "create-payment-intend",
+  "setup": [
+    {
+      "communicateType": "REST",
+      "apiType": "POST",
+      "apiUrl": "http://localhost:8080/api/invoices",
+      "compensateApiUrl": "http://localhost:8080/api/invoices",
+      "compensateApiType": "DELETE",
+      "compensatePathVariable": "id",
+      "serviceName": "order",
+      "sendResponseToAPI": false,
+      "triggerCompensate": true
+    },
+    {
+      "communicateType": "REST",
+      "apiType": "POST",
+      "apiUrl": "http://localhost:8000/api/products",
+      "compensateApiUrl": "http://localhost:8000/api/products",
+      "compensateApiType": "DELETE",
+      "compensatePathVariable": "id",
+      "serviceName": "inventory",
+      "sendResponseToAPI": true,
+      "triggerCompensate": true
+    },
+    {
+      "communicateType": "REST",
+      "apiType": "POST",
+      "apiUrl": "http://localhost:8082/api/payments",
+      "compensateApiUrl": "http://localhost:8082/api/payments/rollback",
+      "compensateApiType": "POST",
+      "serviceName": "payment",
+      "sendResponseToAPI": true,
+      "triggerCompensate": true
+    },
+    {
+      "communicateType": "REST",
+      "apiType": "POST",
+      "apiUrl": "http://localhost:8089/notifications",
+      "serviceName": "notify",
+      "sendResponseToAPI": true,
+      "triggerCompensate": false
+    }
+  ]
+}

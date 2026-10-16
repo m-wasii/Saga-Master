@@ -1,0 +1,45 @@
+{
+  "url": "create-payment-intend",
+  "setup": [
+    {
+      "communicateType": "REST",
+      "apiType": "POST",
+      "apiUrl": "http://localhost:8888/api/examples/post-api",
+      "compensateApiUrl": "http://localhost:8888/api/compensate/trigger",
+      "compensateApiType": "POST",
+      "serviceName": "order",
+      "sendResponseToAPI": true,
+      "triggerCompensate": true
+    },
+    {
+      "communicateType": "REST",
+      "apiType": "GET",
+      "apiUrl": "http://localhost:8888/api/examples/get-api",
+      "compensateApiUrl": "http://localhost:8888/api/compensate/trigger",
+      "compensateApiType": "POST",
+      "serviceName": "inventory",
+      "sendResponseToAPI": true,
+      "triggerCompensate": true
+    },
+    {
+      "communicateType": "REST",
+      "apiType": "PUT",
+      "apiUrl": "http://localhost:8888/api/examples/put-api",
+      "compensateApiUrl": "http://localhost:8888/api/compensate/trigger",
+      "compensateApiType": "POST",
+      "serviceName": "payment",
+      "sendResponseToAPI": true,
+      "triggerCompensate": true
+    },
+    {
+      "communicateType": "REST",
+      "apiType": "POST",
+      "apiUrl": "http://localhost:8888/api/examples/fail-api",
+      "compensateApiUrl": "http://localhost:8888/api/compensate/trigger",
+      "compensateApiType": "POST",
+      "serviceName": "notify",
+      "sendResponseToAPI": true,
+      "triggerCompensate": false
+    }
+  ]
+}

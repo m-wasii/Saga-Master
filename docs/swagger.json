@@ -1,0 +1,72 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Saga Master",
+    "version": "1.0.0",
+    "description": "Declarative JSON saga orchestrator. Product routes are POST /api/orchestrate/setup and POST /api/orchestrate/trigger/{url}. Helper routes under /api/examples and /api/compensate are for local development."
+  },
+  "servers": [{ "url": "http://localhost:8888" }],
+  "paths": {
+    "/api/orchestrate/setup": {
+      "post": {
+        "summary": "Store a saga setup in memory",
+        "description": "Saves the ordered JSON setup for a trigger name. Every setup key is required. A restart clears stored setups.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "type": "object" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Setup stored" },
+          "400": { "description": "Missing required keys" }
+        }
+      },
+      "get": {
+        "summary": "List in-memory setups",
+        "responses": { "200": { "description": "Current setups" } }
+      }
+    },
+    "/api/orchestrate/trigger/{url}": {
+      "post": {
+        "summary": "Run a stored saga",
+        "description": "Forwards the JSON body through the setup order. REST success is HTTP 2xx. Kafka success is a boolean success field. Compensation runs in reverse for steps that succeeded.",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "type": "object" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Saga completed or compensated" },
+          "404": { "description": "Setup was not found" },
+          "500": { "description": "Rollback failed" }
+        }
+      }
+    },
+    "/api/orchestrate/setup/{url}": {
+      "put": {
+        "summary": "Replace a stored setup",
+        "parameters": [{ "name": "url", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "Updated" }, "404": { "description": "Not found" } }
+      },
+      "delete": {
+        "summary": "Delete a stored setup",
+        "parameters": [{ "name": "url", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": { "202": { "description": "Deleted" }, "404": { "description": "Not found" } }
+      }
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "url": "create-payment-intend",
+  "setup": [
+    {
+      "communicateType": "KAFKA",
+      "clientId": "saga-master",
+      "brokers": ["localhost:9092"],
+      "serviceName": "order",
+      "sendResponseToAPI": false,
+      "producer": { "topic": "saga.order.command" },
+      "consumer": { "topic": "saga.order.reply", "fromBeginning": false, "groupId": "saga-master-order" },
+      "compensateProducer": { "topic": "saga.order.compensate" },
+      "compensateConsumer": { "topic": "saga.order.compensate.reply", "fromBeginning": false, "groupId": "saga-master-order-compensate" }
+    },
+    {
+      "communicateType": "KAFKA",
+      "clientId": "saga-master",
+      "brokers": ["localhost:9092"],
+      "serviceName": "inventory",
+      "sendResponseToAPI": true,
+      "producer": { "topic": "saga.inventory.command" },
+      "consumer": { "topic": "saga.inventory.reply", "fromBeginning": false, "groupId": "saga-master-inventory" },
+      "compensateProducer": { "topic": "saga.inventory.compensate" },
+      "compensateConsumer": { "topic": "saga.inventory.compensate.reply", "fromBeginning": false, "groupId": "saga-master-inventory-compensate" }
+    },
+    {
+      "communicateType": "KAFKA",
+      "clientId": "saga-master",
+      "brokers": ["localhost:9092"],
+      "serviceName": "payment",
+      "sendResponseToAPI": true,
+      "producer": { "topic": "saga.payment.command" },
+      "consumer": { "topic": "saga.payment.reply", "fromBeginning": false, "groupId": "saga-master-payment" },
+      "compensateProducer": { "topic": "saga.payment.compensate" },
+      "compensateConsumer": { "topic": "saga.payment.compensate.reply", "fromBeginning": false, "groupId": "saga-master-payment-compensate" }
+    },
+    {
+      "communicateType": "KAFKA",
+      "clientId": "saga-master",
+      "brokers": ["localhost:9092"],
+      "serviceName": "notify",
+      "sendResponseToAPI": true,
+      "producer": { "topic": "saga.notify.command" },
+      "consumer": { "topic": "saga.notify.reply", "fromBeginning": false, "groupId": "saga-master-notify" },
+      "compensateProducer": { "topic": "saga.notify.compensate" },
+      "compensateConsumer": { "topic": "saga.notify.compensate.reply", "fromBeginning": false, "groupId": "saga-master-notify-compensate" }
+    }
+  ]
+}

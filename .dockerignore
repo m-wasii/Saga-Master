@@ -1,0 +1,10 @@
+node_modules
+dist
+.git
+*.log
+coverage
+*.pdf
+*.docx
+*.pptx
+*.xlsx
+*.rar
